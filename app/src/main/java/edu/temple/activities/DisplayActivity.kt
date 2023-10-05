@@ -1,18 +1,28 @@
 package edu.temple.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 
+const val RESULT_KEY = "asdf"
 class DisplayActivity : AppCompatActivity() {
 
     // TODO Step 1: Launch TextSizeActivity when button clicked to allow selection of text size value
 
+
     // TODO Step 3: Use returned value for lyricsDisplayTextView text size
+
 
     private lateinit var lyricsDisplayTextView: TextView
     private lateinit var textSizeSelectorButton: Button
+
+
+
+    /*if some value pass then change on create or on start*/
+    //launchIntent.putExtra(SOME_KEY, lyricsDisplayTextView.text.toString())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,5 +31,13 @@ class DisplayActivity : AppCompatActivity() {
         lyricsDisplayTextView = findViewById(R.id.lyricsDisplayTextView)
         textSizeSelectorButton = findViewById(R.id.textSizeSelectorButton)
 
+        lyricsDisplayTextView.textSize = intent.getFloatExtra(SOME_KEY, 22f)
+
+
+        textSizeSelectorButton.setOnClickListener{
+            //setResult(SOME_KEY, Intent().putExtra(RESULT_KEY, "22.0"))
+            startActivity(Intent(this@DisplayActivity, TextSizeActivity::class.java))
+            //finish()
+        }
     }
 }
