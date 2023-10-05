@@ -20,7 +20,13 @@ class DisplayActivity : AppCompatActivity() {
     private lateinit var textSizeSelectorButton: Button
 
 
-
+    val someLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == RESULT_OK){
+            it.data?.apply{
+                lyricsDisplayTextView.textSize = getFloatExtra(SOME_KEY, 22f)
+            }
+        }
+    }
     /*if some value pass then change on create or on start*/
     //launchIntent.putExtra(SOME_KEY, lyricsDisplayTextView.text.toString())
 
@@ -31,12 +37,12 @@ class DisplayActivity : AppCompatActivity() {
         lyricsDisplayTextView = findViewById(R.id.lyricsDisplayTextView)
         textSizeSelectorButton = findViewById(R.id.textSizeSelectorButton)
 
-        lyricsDisplayTextView.textSize = intent.getFloatExtra(SOME_KEY, 22f)
 
 
         textSizeSelectorButton.setOnClickListener{
-            //setResult(SOME_KEY, Intent().putExtra(RESULT_KEY, "22.0"))
-            startActivity(Intent(this@DisplayActivity, TextSizeActivity::class.java))
+            lyricsDisplayTextView.textSize = intent.getFloatExtra(SOME_KEY, 22f)
+            someLauncher.launch(Intent(this@DisplayActivity, TextSizeActivity::class.java))
+        //startActivity(Intent(this@DisplayActivity, TextSizeActivity::class.java))
             //finish()
         }
     }
